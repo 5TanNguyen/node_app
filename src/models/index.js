@@ -41,12 +41,14 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.product = require('./product')(sequelize, Sequelize.DataTypes);
+db.productPrice = require('./productPrice')(sequelize, Sequelize.DataTypes);
 db.user = require('./user')(sequelize, Sequelize.DataTypes);
 db.order = require('./order')(sequelize, Sequelize.DataTypes);
 db.orderDetail = require('./orderDetail')(sequelize, Sequelize.DataTypes);
 db.customer = require('./customer')(sequelize, Sequelize.DataTypes);
 db.role = require('./role')(sequelize, Sequelize.DataTypes);
 db.message = require('./message')(sequelize, Sequelize.DataTypes);
+db.revenue = require('./revenue')(sequelize, Sequelize.DataTypes);
 
 db.sequelize.sync({ force: false})
 .then(()=>{
@@ -96,6 +98,24 @@ db.role.hasMany(db.user, {
 db.user.belongsTo(db.role,{
   foreignKey: 'role_id',
   as: 'role'
+})
+
+db.product.hasMany(db.productPrice, {
+  foreignKey: 'product_id',
+  as: 'productPrice'
+})
+db.productPrice.belongsTo(db.product, {
+  foreignKey: 'product_id',
+  as: 'product'
+})
+
+db.user.hasMany(db.revenue,{
+  foreignKey: 'user_id',
+  as: 'revenue'
+})
+db.revenue.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  as: 'user'
 })
 
 module.exports = db;

@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Order extends Model{
+    class ProductPrice extends Model{
         // 
         // 
         // 
@@ -12,14 +12,13 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
         }
     }
-    Order.init({
-        totalPrice: DataTypes.FLOAT,
-        date: DataTypes.DATE,
-        address: DataTypes.STRING,
-        state: DataTypes.BOOLEAN
+    ProductPrice.init({
+        price: DataTypes.FLOAT,
+        beginDate: DataTypes.DATE,
+        endDate: DataTypes.DATE
     }, {
         sequelize,
-        modelName: 'Order',
+        modelName: 'ProductPrice',
     });
-    return Order;
+    return ProductPrice;
 }
